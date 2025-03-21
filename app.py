@@ -22,7 +22,7 @@ def download_google_drive_folder():
 class ImageDatasetManager:
     def __init__(self, dataset_path: str):
         self.dataset_path = dataset_path
-        self.classes = ["glioma", "meningioma", "no_tumor", "pituitary"]
+        self.classes = ["glioma", "meningioma", "notumor", "pituitary"]
         self.image_data = self.load_data()
 
     def load_data(self) -> Dict[str, List[str]]:
