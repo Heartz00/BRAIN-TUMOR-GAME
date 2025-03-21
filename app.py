@@ -3,6 +3,20 @@ import random
 from PIL import Image
 import streamlit as st
 from typing import Dict, List, Tuple
+import gdown
+
+# Google Drive folder link
+GOOGLE_DRIVE_FOLDER_LINK = "https://drive.google.com/drive/folders/1cjQ-PaYntb5jgKShmungVPJdemXAVKdu?usp=sharing"  # Replace with your folder link
+DATASET_DIR = "brain-mri-dataset"  # Directory to store the downloaded dataset
+
+# Ensure the dataset is downloaded
+def download_google_drive_folder():
+    if not os.path.exists(DATASET_DIR):
+        os.makedirs(DATASET_DIR)
+        gdown.download_folder(GOOGLE_DRIVE_FOLDER_LINK, output=DATASET_DIR)
+        st.success("Dataset downloaded successfully!")
+    else:
+        st.info("Dataset already downloaded.")
 
 # ImageDatasetManager Class
 class ImageDatasetManager:
@@ -86,8 +100,11 @@ def main():
     st.title("Brain MRI Guessing Game 🧠")
     st.write("Test your knowledge of brain tumor identification!")
 
+    # Download Google Drive folder
+    download_google_drive_folder()
+
     # Load dataset
-    dataset_path = "image_data"  # Replace with your dataset path
+    dataset_path = os.path.join(DATASET_DIR, "Training")  # Adjust path based on dataset structure
     dataset_manager = ImageDatasetManager(dataset_path)
 
     # Initialize the game
